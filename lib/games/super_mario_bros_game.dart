@@ -19,7 +19,9 @@ class SuperMario extends FlameGame {
     ..viewfinder.visibleGameSize = Vector2(450, 50)
     ..viewfinder.position = Vector2(0, 0)
     ..viewfinder.anchor = Anchor.topLeft
-    ..viewfinder.position = Vector2(500, 0)
+    ..viewfinder.position = Vector2(500, 0);
+
+    addAll([world, cameraComponent]);
 
     return super.onLoad();
   }
