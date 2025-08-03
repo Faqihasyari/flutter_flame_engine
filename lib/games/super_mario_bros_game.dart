@@ -15,16 +15,25 @@ class SuperMario extends FlameGame {
     await world.add(map);
     await add(world);
 
-    var cameraComponent = CameraComponent(world: world)
-      ..viewfinder.zoom =
-          3.0 // atur tingkat zoom sesuai keinginanmu
+    final mapSize = map.size; // Ukuran map (dalam satuan game)
+    final screenSize =
+        size; // Ukuran layar (akan tersedia setelah game layout selesai)
+
+    // Hitung zoom biar seluruh map bisa terlihat
+    final zoomX = screenSize.x / mapSize.x;
+    final zoomY = screenSize.y / mapSize.y;
+    final zoom = zoomX < zoomY ? zoomX : zoomY;
+
+    final cameraComponent = CameraComponent(world: world)
       ..viewfinder.anchor = Anchor.topLeft
-      ..viewfinder.position = Vector2.zero();
+      ..viewfinder.position = Vector2.zero()
+      ..viewfinder.zoom = zoom; // <- penting! set zoom!
 
-    print('World size: ${map.size}');
-    print('Camera zoom before set: ${cameraComponent.viewfinder.zoom}');
+    print('World size: $mapSize');
+    print('Screen size: $screenSize');
+    print('Camera zoom: $zoom');
 
-    addAll([world, cameraComponent]);
+    add(cameraComponent);
 
     return super.onLoad();
   }
