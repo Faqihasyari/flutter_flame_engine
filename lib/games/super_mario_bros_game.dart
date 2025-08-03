@@ -25,9 +25,10 @@ class SuperMario extends FlameGame {
     final zoom = zoomX < zoomY ? zoomX : zoomY;
 
     final cameraComponent = CameraComponent(world: world)
+      ..viewfinder.zoom =
+          4.1 // atur tingkat zoom sesuai keinginanmu
       ..viewfinder.anchor = Anchor.topLeft
-      ..viewfinder.position = Vector2.zero()
-      ..viewfinder.zoom = zoom; // <- penting! set zoom!
+      ..viewfinder.position = Vector2.zero();
 
     print('World size: $mapSize');
     print('Screen size: $screenSize');
