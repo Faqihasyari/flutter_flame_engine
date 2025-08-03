@@ -33,9 +33,8 @@ class SuperMario extends FlameGame {
     print('World size: $mapSize');
     print('Screen size: $screenSize');
     print('Camera zoom: $zoom');
-
+    
     add(cameraComponent);
-
     return super.onLoad();
   }
 }
