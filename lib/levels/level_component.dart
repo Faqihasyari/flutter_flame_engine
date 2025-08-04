@@ -4,6 +4,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:supermariobros/constants/globals.dart';
 import 'package:supermariobros/games/super_mario_bros_game.dart';
 import 'package:supermariobros/levels/level_option.dart';
+import 'package:supermariobros/objects/platform.dart';
 
 class LevelComponent extends Component with HasGameRef<SuperMario> {
   final LevelOption option;
@@ -30,5 +31,20 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
           Globals.tileSize,
     );
     return super.onLoad();
+  }
+
+  void createPlatform(RenderableTiledMap tileMap) {
+    ObjectGroup? platformslayer = tileMap.getLayer<ObjectGroup>('platforms');
+
+    if (platformslayer == null) {
+      throw Exception('platforms layer not found');
+    }
+
+    for (final TiledObject obj in platformslayer.objects) {
+      Platform platform = Platform(position: Vector2(obj.x, obj.y), size: Vector2(obj.width, obj.height));
+
+      gameRef.world.add(platform);
+      
+    }
   }
 }
