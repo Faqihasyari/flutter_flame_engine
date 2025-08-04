@@ -1,10 +1,13 @@
-import 'package:supermariobros/constants/globals.dart';
 
-enum LevelOption {
-  lv_1_1(Globals.lv_1_1, '1-1');
+import 'package:flame/components.dart';
+import 'package:flame/experimental.dart';
+import 'package:supermariobros/games/super_mario_bros_game.dart';
+import 'package:supermariobros/levels/level_option.dart';
 
-  const LevelOption(this.level, this.name);
+class LevelComponent extends Component  with HasGameRef<SuperMario> {
+  final LevelOption option;
 
-  final String level;
-  final String name;
+  late Rectangle _levelBounds; 
+
+  
 }
