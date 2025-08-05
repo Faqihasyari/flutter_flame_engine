@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/text.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:supermariobros/actors/mario.dart';
 import 'package:supermariobros/constants/globals.dart';
 import 'package:supermariobros/games/super_mario_bros_game.dart';
 import 'package:supermariobros/levels/level_option.dart';
@@ -13,6 +14,8 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
   final LevelOption option;
 
   late Rectangle _levelBounds;
+
+  late Mario _mario;
 
   final textPaint = TextPaint(
     style: const TextStyle(
@@ -43,6 +46,30 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
     );
     createPlatform(level.tileMap);
     return super.onLoad();
+  }
+
+   void createActors(RenderableTiledMap tileMap) {
+    ObjectGroup? actorsLayer = tileMap.getLayer<ObjectGroup>('Actors');
+
+    if (actorsLayer == null) {
+      throw Exception('Actors layer not found');
+    }
+
+    for (final TiledObject obj in actorsLayer.objects) {
+      switch (obj.name){
+        case 'Mario':
+        _mario = Mario(position: Vector2(obj.x, obj.y), levelBounds: _levelBounds);
+        break;
+      }
+      // Tambahkan teks posisi ke dunia
+      final positionText = TextComponent(
+        text: 'x: ${obj.x.toInt()}, y: ${obj.y.toInt()}',
+        textRenderer: textPaint,
+        position: Vector2(obj.x, obj.y), // Di atas platform
+        anchor: Anchor.bottomLeft,
+      );
+      gameRef.world.add(positionText);
+    }
   }
 
   void createPlatform(RenderableTiledMap tileMap) {
