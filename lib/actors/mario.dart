@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:supermariobros/constants/animation_configs.dart';
@@ -18,6 +19,34 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> {
         anchor: Anchor.topLeft,
       ) {
     debugMode = true;
+
+    _minClamp = levelBounds.topLeft + (size / 2);
+    _maxClamp = levelBounds.bottomRight + (size / 2);
+
+    add(CircleHitbox());
+
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (dt > 0.05) return;
+
+    velocityUpdate();
+    positionUpdate(dt);
+  }
+
+  void velocityUpdate(){
+    velocity.y += _gravity;
+  }
+
+  void positionUpdate(double dt){
+    Vector2 distance = velocity * dt;
+
+    position += distance;
+
+    position.clamp(_minClamp, _maxClamp);
   }
 
   @override
