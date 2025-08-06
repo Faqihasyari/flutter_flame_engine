@@ -6,7 +6,7 @@ import 'package:supermariobros/constants/globals.dart';
 
 enum MarioAnimationState { idle, walking, jumping }
 
-class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> {
+class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with CollisionCallbacks{
   final double _gravity = 15;
   final Vector2 velocity = Vector2.zero();
 
@@ -24,7 +24,6 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> {
     _maxClamp = levelBounds.bottomRight + (size / 2);
 
     add(CircleHitbox());
-
   }
 
   @override
@@ -37,11 +36,11 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> {
     positionUpdate(dt);
   }
 
-  void velocityUpdate(){
+  void velocityUpdate() {
     velocity.y += _gravity;
   }
 
-  void positionUpdate(double dt){
+  void positionUpdate(double dt) {
     Vector2 distance = velocity * dt;
 
     position += distance;
@@ -53,12 +52,17 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> {
   Future<void>? onLoad() async {
     final SpriteAnimation idle = await AnimationConfigs.mario.idle();
 
-    animations = {
-      MarioAnimationState.idle: idle,
-    };
+    animations = {MarioAnimationState.idle: idle};
 
     current = MarioAnimationState.idle;
 
     return super.onLoad();
+  }
+
+  @override
+  void onCollision (Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+
+    
   }
 }
