@@ -7,14 +7,15 @@ import 'package:supermariobros/objects/platform.dart';
 
 enum MarioAnimationState { idle, walking, jumping }
 
-class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with CollisionCallbacks{
+class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
+    with CollisionCallbacks {
   final double _gravity = 15;
   final Vector2 velocity = Vector2.zero();
 
   late Vector2 _minClamp;
   late Vector2 _maxClamp;
 
-  dou
+  double _jumpSpeed = 400;
 
   Mario({required Vector2 position, required Rectangle levelBounds})
     : super(
@@ -27,7 +28,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with Coll
     _minClamp = levelBounds.topLeft + (size / 2);
     _maxClamp = levelBounds.bottomRight + (size / 2);
 
-    add(CircleHitbox());
+    add(RectangleHitbox());
   }
 
   @override
@@ -42,6 +43,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with Coll
 
   void velocityUpdate() {
     velocity.y += _gravity;
+    velocity.y = velocity.y.clamp(-_jumpSpeed, 150);
   }
 
   void positionUpdate(double dt) {
@@ -64,7 +66,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with Coll
   }
 
   @override
-  void onCollision (Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
 
     if (other is Platform) {
@@ -75,12 +77,17 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with Coll
   }
 
   void platformPositionCheck(Set<Vector2> intersectionPoints) {
-    final Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
+    final Vector2 mid =
+        (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
 
     final Vector2 collisionNormal = absoluteCenter - mid;
     double penetrationLenght = (size.x / 2) - collisionNormal.length;
     collisionNormal.normalize();
 
     position += collisionNormal.scaled(penetrationLenght);
+
+    if (collisionNormal.y > 0.9) {
+      velocity.y = 0;
+    }
   }
 }

@@ -82,19 +82,20 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
   void createPlatform(RenderableTiledMap tileMap) {
     ObjectGroup? platformslayer = tileMap.getLayer<ObjectGroup>('Platforms');
 
+     if (platformslayer != null) {
+      for (final TiledObject platformObject in platformslayer.objects) {
+        final platform = Platform(
+          position: Vector2(platformObject.x, platformObject.y),
+          size: Vector2(platformObject.width, platformObject.height),
+        );
+        add(platform);
+      }
+    }
     if (platformslayer == null) {
       throw Exception('platforms layer not found');
     }
 
     for (final TiledObject obj in platformslayer.objects) {
-      // Platform platform = Platform(
-      //   position: Vector2(obj.x, obj.y),
-      //   size: Vector2(obj.width, obj.height),
-      // );
-
-      // gameRef.world.add(platform);
-
-      // Tambahkan teks posisi ke dunia
       final positionText = TextComponent(
         text: 'x: ${obj.x.toInt()}, y: ${obj.y.toInt()}',
         textRenderer: textPaint,
