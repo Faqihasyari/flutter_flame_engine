@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:supermariobros/constants/animation_configs.dart';
 import 'package:supermariobros/constants/globals.dart';
+import 'package:supermariobros/objects/platform.dart';
 
 enum MarioAnimationState { idle, walking, jumping }
 
@@ -63,6 +64,20 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with Coll
   void onCollision (Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
 
-    
+    if (other is Platform) {
+      if (intersectionPoints.length == 2) {
+        platformPositionCheck(intersectionPoints);
+      }
+    }
+  }
+
+  void platformPositionCheck(Set<Vector2> intersectionPoints) {
+    final Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
+
+    final Vector2 collisionNormal = absoluteCenter - mid;
+    double penetrationLenght = (size.x / 2) - collisionNormal.length;
+    collisionNormal.normalize();
+
+    position += collisionNormal.scaled(penetrationLenght);
   }
 }
