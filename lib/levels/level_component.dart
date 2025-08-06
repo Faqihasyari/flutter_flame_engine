@@ -44,11 +44,12 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
           ) *
           Globals.tileSize,
     );
+    createActors(level.tileMap);
     createPlatform(level.tileMap);
     return super.onLoad();
   }
 
-   void createActors(RenderableTiledMap tileMap) {
+  void createActors(RenderableTiledMap tileMap) {
     ObjectGroup? actorsLayer = tileMap.getLayer<ObjectGroup>('Actors');
 
     if (actorsLayer == null) {
@@ -56,10 +57,16 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
     }
 
     for (final TiledObject obj in actorsLayer.objects) {
-      switch (obj.name){
+      switch (obj.name) {
         case 'Mario':
-        _mario = Mario(position: Vector2(obj.x, obj.y), levelBounds: _levelBounds);
-        break;
+          _mario = Mario(
+            position: Vector2(obj.x, obj.y),
+            levelBounds: _levelBounds,
+          );
+          gameRef.world.add(_mario);
+          break;
+        default:
+          break;
       }
       // Tambahkan teks posisi ke dunia
       final positionText = TextComponent(
@@ -91,7 +98,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
       final positionText = TextComponent(
         text: 'x: ${obj.x.toInt()}, y: ${obj.y.toInt()}',
         textRenderer: textPaint,
-        position: Vector2(obj.x, obj.y), // Di atas platform
+        position: Vector2(obj.x, obj.y - 20), // Di atas platform
         anchor: Anchor.bottomLeft,
       );
       gameRef.world.add(positionText);
