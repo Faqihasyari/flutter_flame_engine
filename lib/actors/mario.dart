@@ -13,6 +13,9 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> with Coll
 
   late Vector2 _minClamp;
   late Vector2 _maxClamp;
+
+  dou
+
   Mario({required Vector2 position, required Rectangle levelBounds})
     : super(
         position: position,

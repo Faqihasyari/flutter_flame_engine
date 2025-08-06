@@ -5,7 +5,7 @@ import 'package:supermariobros/constants/globals.dart';
 import 'package:supermariobros/levels/level_component.dart';
 import 'package:supermariobros/levels/level_option.dart';
 
-class SuperMario extends FlameGame {
+class SuperMario extends FlameGame with HasCollisionDetection {
   late CameraComponent cameraComponent;
   final World world = World();
   LevelComponent? _currentLevel;
