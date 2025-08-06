@@ -6,6 +6,11 @@ import 'package:supermariobros/constants/globals.dart';
 enum MarioAnimationState { idle, walking, jumping }
 
 class Mario extends SpriteAnimationGroupComponent<MarioAnimationState> {
+  final double _gravity = 15;
+  final Vector2 velocity = Vector2.zero();
+
+  late Vector2 _minClamp;
+  late Vector2 _maxClamp;
   Mario({required Vector2 position, required Rectangle levelBounds})
     : super(
         position: position,
