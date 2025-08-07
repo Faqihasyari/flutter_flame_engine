@@ -1,6 +1,8 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:supermariobros/constants/animation_configs.dart';
 import 'package:supermariobros/constants/globals.dart';
 import 'package:supermariobros/objects/platform.dart';
@@ -8,12 +10,18 @@ import 'package:supermariobros/objects/platform.dart';
 enum MarioAnimationState { idle, walking, jumping }
 
 class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
-    with CollisionCallbacks {
+    with CollisionCallbacks, KeyboardHandler {
   final double _gravity = 15;
   final Vector2 velocity = Vector2.zero();
 
   static const double _minMoveSpeed = 125;
   static const double _maxMoveSpeed = _minMoveSpeed + 100;
+
+  double _currentSpeed = _minMoveSpeed;
+
+  bool isFacingSpeed = true;
+
+  int _hAxisInput = 0;
 
   late Vector2 _minClamp;
   late Vector2 _maxClamp;
@@ -42,6 +50,32 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
 
     velocityUpdate();
     positionUpdate(dt);
+  }
+
+  @override
+  bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    _hAxisInput = 0;
+
+    _hAxisInput += keysPressed.contains(LogicalKeyboardKey.arrowLeft) ? -1 : 0;
+    _hAxisInput += keysPressed.contains(LogicalKeyboardKey.arrowRight) ? 1 : 0;
+
+    return super.onKeyEvent(event, keysPressed);
+  }
+
+  void speedUpdate(){
+    if (_hAxisInput == 0) {
+      _currentSpeed = _minMoveSpeed;
+    } else {
+      if (_currentSpeed <= _maxMoveSpeed) {
+        _currentSpeed++;
+      }
+    }
+  }
+
+  void facingDirectionUpdate(){
+    if (condition) {
+      
+    }
   }
 
   void velocityUpdate() {
