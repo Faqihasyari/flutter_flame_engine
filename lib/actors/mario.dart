@@ -73,7 +73,13 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
   }
 
   void facingDirectionUpdate(){
-    if (condition) {
+    if (_hAxisInput > 0) {
+      isFacingSpeed =true;
+    } else{
+      isFacingSpeed = false;
+    }
+
+    if ((_hAxisInput > 0 && scale.x < 0) || (_hAxisInput < 0 && scale.x > 0)) {
       
     }
   }
