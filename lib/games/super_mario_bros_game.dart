@@ -16,7 +16,7 @@ class SuperMario extends FlameGame
   Future<void> onLoad() async {
     cameraComponent = CameraComponent(world: world)
       ..viewfinder.zoom =
-          3.0 // atur tingkat zoom sesuai keinginan
+          3.5 // atur tingkat zoom sesuai keinginan
       ..viewfinder.anchor = Anchor.topLeft
       ..viewfinder.position = Vector2.zero();
     addAll([world, cameraComponent]);

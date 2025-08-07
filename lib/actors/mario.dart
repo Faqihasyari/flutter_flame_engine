@@ -32,7 +32,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     : super(
         position: position,
         size: Vector2(Globals.tileSize, Globals.tileSize),
-        anchor: Anchor.topLeft,
+        anchor: Anchor.center,
       ) {
     debugMode = true;
 
