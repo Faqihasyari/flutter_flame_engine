@@ -46,6 +46,8 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
     );
     createActors(level.tileMap);
     createPlatform(level.tileMap);
+    _setupCamera();
+
     return super.onLoad();
   }
 
@@ -82,7 +84,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
   void createPlatform(RenderableTiledMap tileMap) {
     ObjectGroup? platformslayer = tileMap.getLayer<ObjectGroup>('Platforms');
 
-     if (platformslayer != null) {
+    if (platformslayer != null) {
       for (final TiledObject platformObject in platformslayer.objects) {
         final platform = Platform(
           position: Vector2(platformObject.x, platformObject.y),
@@ -104,5 +106,12 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
       );
       gameRef.world.add(positionText);
     }
+  }
+
+  void _setupCamera() {
+    gameRef.cameraComponent.follow(_mario, maxSpeed: 1000);
+    gameRef.cameraComponent.setBounds(
+      Rectangle.fromPoints(_levelBounds.topRight, _levelBounds.topLeft),
+    );
   }
 }

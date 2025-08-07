@@ -50,6 +50,8 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
 
     velocityUpdate();
     positionUpdate(dt);
+    speedUpdate();
+    facingDirectionUpdate();
   }
 
   @override
@@ -62,7 +64,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     return super.onKeyEvent(event, keysPressed);
   }
 
-  void speedUpdate(){
+  void speedUpdate() {
     if (_hAxisInput == 0) {
       _currentSpeed = _minMoveSpeed;
     } else {
@@ -72,21 +74,23 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     }
   }
 
-  void facingDirectionUpdate(){
+  void facingDirectionUpdate() {
     if (_hAxisInput > 0) {
-      isFacingSpeed =true;
-    } else{
+      isFacingSpeed = true;
+    } else {
       isFacingSpeed = false;
     }
 
-    if ((_hAxisInput > 0 && scale.x < 0) || (_hAxisInput < 0 && scale.x > 0)) {
-      
+    if ((_hAxisInput < 0 && scale.x > 0) || (_hAxisInput > 0 && scale.x < 0)) {
+      flipHorizontallyAroundCenter();
     }
   }
 
   void velocityUpdate() {
     velocity.y += _gravity;
     velocity.y = velocity.y.clamp(-_jumpSpeed, 150);
+
+    velocity.x = _hAxisInput * _currentSpeed;
   }
 
   void positionUpdate(double dt) {
