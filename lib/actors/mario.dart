@@ -15,6 +15,8 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
   final Vector2 velocity = Vector2.zero();
 
   final Vector2 _up = Vector2(0, -1);
+  bool _jumpInput = false;
+  bool isOnGround = false;
 
   static const double _minMoveSpeed = 125;
   static const double _maxMoveSpeed = _minMoveSpeed + 100;
