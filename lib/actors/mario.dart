@@ -64,6 +64,8 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
 
     _hAxisInput += keysPressed.contains(LogicalKeyboardKey.arrowLeft) ? -1 : 0;
     _hAxisInput += keysPressed.contains(LogicalKeyboardKey.arrowRight) ? 1 : 0;
+    _jumpInput = keysPressed.contains(LogicalKeyboardKey.space);
+
 
     return super.onKeyEvent(event, keysPressed);
   }
