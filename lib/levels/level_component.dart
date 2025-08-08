@@ -90,7 +90,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
           position: Vector2(platformObject.x, platformObject.y),
           size: Vector2(platformObject.width, platformObject.height),
         );
-        add(platform);
+        gameRef.world.add(platform);
       }
     }
     if (platformslayer == null) {
@@ -102,7 +102,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
         text: 'x: ${obj.x.toInt()}, y: ${obj.y.toInt()}',
         textRenderer: textPaint,
         position: Vector2(obj.x, obj.y - 20), // Di atas platform
-        anchor: Anchor.bottomLeft,
+        anchor: Anchor.center,
       );
       gameRef.world.add(positionText);
     }

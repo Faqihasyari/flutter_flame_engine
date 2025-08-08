@@ -28,11 +28,11 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
 
   double _jumpSpeed = 400;
 
-  Mario({required Vector2 position, required Rectangle levelBounds})
+  Mario({required Rectangle levelBounds, required Vector2 position})
     : super(
         position: position,
         size: Vector2(Globals.tileSize, Globals.tileSize),
-        anchor: Anchor.center,
+        anchor: Anchor.bottomRight,
       ) {
     debugMode = true;
 

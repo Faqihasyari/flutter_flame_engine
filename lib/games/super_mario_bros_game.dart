@@ -17,7 +17,7 @@ class SuperMario extends FlameGame
     cameraComponent = CameraComponent(world: world)
       ..viewfinder.zoom =
           3.5 // atur tingkat zoom sesuai keinginan
-      ..viewfinder.anchor = Anchor.topLeft
+      ..viewfinder.anchor = Anchor.center
       ..viewfinder.position = Vector2.zero();
     addAll([world, cameraComponent]);
 
