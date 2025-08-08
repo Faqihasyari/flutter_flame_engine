@@ -1,6 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:supermariobros/constants/animation_configs.dart';
@@ -78,6 +79,9 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
 
   void jump(){
     velocity.y -= _jumpSpeed;
+    isOnGround = false;
+
+    FlameAudio.play(Globals.jumpSmallSFX);
   }
 
   void speedUpdate() {
