@@ -70,6 +70,16 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     return super.onKeyEvent(event, keysPressed);
   }
 
+  void jumpUpdate(){
+    if (_jumpInput && isOnGround) {
+      jump();
+    }
+  }
+
+  void jump(){
+    velocity.y -= _jumpSpeed;
+  }
+
   void speedUpdate() {
     if (_hAxisInput == 0) {
       _currentSpeed = _minMoveSpeed;
