@@ -127,8 +127,11 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     final SpriteAnimation walking = await AnimationConfigs.mario.walking();
     final SpriteAnimation jumping = await AnimationConfigs.mario.jumping();
 
-
-    animations = {MarioAnimationState.idle: idle};
+    animations = {
+      MarioAnimationState.idle: idle,
+      MarioAnimationState.walking: walking,
+      MarioAnimationState.jumping: jumping,
+    };
 
     current = MarioAnimationState.idle;
 
