@@ -125,7 +125,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
   Future<void>? onLoad() async {
     final SpriteAnimation idle = await AnimationConfigs.mario.idle();
     final SpriteAnimation walking = await AnimationConfigs.mario.walking();
-    final SpriteAnimation idle = await AnimationConfigs.mario.idle();
+    final SpriteAnimation jumping = await AnimationConfigs.mario.jumping();
 
 
     animations = {MarioAnimationState.idle: idle};
