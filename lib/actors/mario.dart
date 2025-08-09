@@ -57,6 +57,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     positionUpdate(dt);
     speedUpdate();
     facingDirectionUpdate();
+    jumpUpdate();
   }
 
   @override
