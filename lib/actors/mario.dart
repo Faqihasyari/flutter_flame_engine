@@ -152,6 +152,10 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     double penetrationLenght = (size.x / 2) - collisionNormal.length;
     collisionNormal.normalize();
 
+    if (_up.dot(collisionNormal) > 0.9) {
+      isOnGround = true;
+    }
+
     position += collisionNormal.scaled(penetrationLenght);
 
     if (collisionNormal.y > 0.9) {
