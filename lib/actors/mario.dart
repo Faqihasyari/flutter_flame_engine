@@ -58,6 +58,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     speedUpdate();
     facingDirectionUpdate();
     jumpUpdate();
+    marioAnimationUpdate();
   }
 
   @override
@@ -120,6 +121,8 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
 
     position.clamp(_minClamp, _maxClamp);
   }
+
+  void marioAnimationUpdate(){}
 
   @override
   Future<void>? onLoad() async {
