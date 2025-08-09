@@ -31,7 +31,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
   late Vector2 _minClamp;
   late Vector2 _maxClamp;
 
-  double _jumpSpeed = 400;
+  double _jumpSpeed = 270;
 
   Mario({required Rectangle levelBounds, required Vector2 position})
     : super(
@@ -68,17 +68,16 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     _hAxisInput += keysPressed.contains(LogicalKeyboardKey.arrowRight) ? 1 : 0;
     _jumpInput = keysPressed.contains(LogicalKeyboardKey.space);
 
-
     return super.onKeyEvent(event, keysPressed);
   }
 
-  void jumpUpdate(){
+  void jumpUpdate() {
     if (_jumpInput && isOnGround) {
       jump();
     }
   }
 
-  void jump(){
+  void jump() {
     velocity.y -= _jumpSpeed;
     isOnGround = false;
 
