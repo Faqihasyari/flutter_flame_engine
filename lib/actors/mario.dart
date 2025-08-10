@@ -122,7 +122,15 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     position.clamp(_minClamp, _maxClamp);
   }
 
-  void marioAnimationUpdate(){}
+  void marioAnimationUpdate(){
+    if (!isOnGround) {
+      current = MarioAnimationState.jumping;
+    } else if (_hAxisInput < 0 || _hAxisInput > 0){
+      current = MarioAnimationState.walking;
+    } else if (_hAxisInput == 0 ){
+      current = MarioAnimationState.idle;
+    }
+  }
 
   @override
   Future<void>? onLoad() async {
