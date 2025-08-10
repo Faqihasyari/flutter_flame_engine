@@ -6,18 +6,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:supermariobros/constants/animation_configs.dart';
 import 'package:supermariobros/constants/globals.dart';
+import 'package:supermariobros/games/super_mario_bros_game.dart';
 import 'package:supermariobros/objects/platform.dart';
 
 enum MarioAnimationState { idle, walking, jumping }
 
 class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
-    with CollisionCallbacks, KeyboardHandler {
+    with CollisionCallbacks, KeyboardHandler, HasGameRef<SuperMario> {
   final double _gravity = 15;
   final Vector2 velocity = Vector2.zero();
 
   final Vector2 _up = Vector2(0, -1);
   bool _jumpInput = false;
   bool isOnGround = false;
+
+  bool _paused = false;
 
   static const double _minMoveSpeed = 125;
   static const double _maxMoveSpeed = _minMoveSpeed + 100;
@@ -69,7 +72,24 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     _hAxisInput += keysPressed.contains(LogicalKeyboardKey.arrowRight) ? 1 : 0;
     _jumpInput = keysPressed.contains(LogicalKeyboardKey.space);
 
+    if (keysPressed.contains(LogicalKeyboardKey.keyF)) {
+      _pause();
+    }
+
     return super.onKeyEvent(event, keysPressed);
+  }
+
+  void _pause() {
+    FlameAudio.play(Globals.pauseSFX);
+
+    if (_paused) {
+      gameRef.resumeEngine();
+      _hAxisInput = 0; // reset supaya baca ulang
+    } else {
+      gameRef.pauseEngine();
+    }
+
+    _paused = !_paused;
   }
 
   void jumpUpdate() {

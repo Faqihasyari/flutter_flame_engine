@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -9,6 +10,8 @@ import 'package:supermariobros/actors/mario.dart';
 import 'package:supermariobros/constants/globals.dart';
 import 'package:supermariobros/games/super_mario_bros_game.dart';
 import 'package:supermariobros/levels/level_option.dart';
+import 'package:supermariobros/objects/brick_block.dart';
+import 'package:supermariobros/objects/mystery_block.dart';
 import 'package:supermariobros/objects/platform.dart';
 
 class LevelComponent extends Component with HasGameRef<SuperMario> {
@@ -45,11 +48,50 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
           ) *
           Globals.tileSize,
     );
+    createBlocks(level.tileMap);
     createActors(level.tileMap);
     createPlatform(level.tileMap);
     _setupCamera();
 
     return super.onLoad();
+  }
+
+  void createBlocks(RenderableTiledMap tileMap) {
+    ObjectGroup? blocksLayer = tileMap.getLayer<ObjectGroup>('Blocks');
+
+    if (blocksLayer == null) {
+      throw Exception('Actors layer not found');
+    }
+
+    for (final TiledObject obj in blocksLayer.objects) {
+      switch (obj.name) {
+        case 'Mystery':
+          MysteryBlock mysteryBlock = MysteryBlock(
+            position: Vector2(obj.x, obj.y),
+          );
+          gameRef.world.add(mysteryBlock);
+          break;
+          case 'Brick':
+          BrickBlock brickBlock = BrickBlock(
+            position: Vector2(obj.x, obj.y),
+            shouldCrumble: Random().nextBool()
+          );
+          gameRef.world.add(brickBlock);
+          break;
+
+
+        default:
+          break;
+      }
+      // Tambahkan teks posisi ke dunia
+      final positionText = TextComponent(
+        text: 'x: ${obj.x.toInt()}, y: ${obj.y.toInt()}',
+        textRenderer: textPaint,
+        position: Vector2(obj.x, obj.y), // Di atas platform
+        anchor: Anchor.bottomLeft,
+      );
+      gameRef.world.add(positionText);
+    }
   }
 
   void createActors(RenderableTiledMap tileMap) {
