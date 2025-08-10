@@ -31,7 +31,7 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
   late Vector2 _minClamp;
   late Vector2 _maxClamp;
 
-  double _jumpSpeed = 270;
+  double _jumpSpeed = 400;
 
   Mario({required Rectangle levelBounds, required Vector2 position})
     : super(
@@ -122,12 +122,12 @@ class Mario extends SpriteAnimationGroupComponent<MarioAnimationState>
     position.clamp(_minClamp, _maxClamp);
   }
 
-  void marioAnimationUpdate(){
+  void marioAnimationUpdate() {
     if (!isOnGround) {
       current = MarioAnimationState.jumping;
-    } else if (_hAxisInput < 0 || _hAxisInput > 0){
+    } else if (_hAxisInput < 0 || _hAxisInput > 0) {
       current = MarioAnimationState.walking;
-    } else if (_hAxisInput == 0 ){
+    } else if (_hAxisInput == 0) {
       current = MarioAnimationState.idle;
     }
   }
