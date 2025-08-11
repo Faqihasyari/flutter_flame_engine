@@ -133,7 +133,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
       final positionText = TextComponent(
         text: 'x: ${obj.x.toInt()}, y: ${obj.y.toInt()}',
         textRenderer: textPaint,
-        position: Vector2(obj.x, obj.y - 20), // Di atas platform
+        position: Vector2(obj.x, obj.y - 20), 
         anchor: Anchor.center,
       );
       gameRef.world.add(positionText);
