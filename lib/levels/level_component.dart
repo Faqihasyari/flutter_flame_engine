@@ -144,7 +144,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
     gameRef.cameraComponent.follow(_mario, maxSpeed: 4000);
     gameRef.cameraComponent.viewfinder
       ..anchor = Anchor(0.1, 0.1)
-      ..zoom = 3.5; // 🔍 Tambahkan zoom di sini
+      ..zoom = 3.5; 
     gameRef.cameraComponent.setBounds(
       Rectangle.fromPoints(_levelBounds.topRight, _levelBounds.topLeft),
     );
