@@ -71,14 +71,13 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
           );
           gameRef.world.add(mysteryBlock);
           break;
-          case 'Brick':
+        case 'Brick':
           BrickBlock brickBlock = BrickBlock(
             position: Vector2(obj.x, obj.y),
-            shouldCrumble: Random().nextBool()
+            shouldCrumble: Random().nextBool(),
           );
           gameRef.world.add(brickBlock);
           break;
-
 
         default:
           break;
