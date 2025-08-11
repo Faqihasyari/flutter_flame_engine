@@ -82,7 +82,6 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
         default:
           break;
       }
-      // Tambahkan teks posisi ke dunia
     }
   }
 
