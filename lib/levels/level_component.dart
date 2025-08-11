@@ -23,7 +23,7 @@ class LevelComponent extends Component with HasGameRef<SuperMario> {
 
   final textPaint = TextPaint(
     style: const TextStyle(
-      fontSize: 24, // << Ubah ukuran font di sini
+      fontSize: 24, 
       color: Color(0xFFFFFFFF),
       fontWeight: FontWeight.bold,
     ),
