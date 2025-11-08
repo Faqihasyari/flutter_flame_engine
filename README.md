@@ -15,18 +15,4 @@ Tujuan dari proyek ini adalah untuk mempelajari dasar-dasar pengembangan game 2D
 
 ---
 
-## 🕹️ Fitur Utama
-
-- Gerakan karakter utama (lari, lompat, idle, jatuh).
-- Tile map berbasis **Tiled Editor (.tmx)**.
-- Collision detection antara Mario dan platform/obstacle.
-- Animasi sprite Mario menggunakan **sprite sheet**.
-- Sistem skor dan coin collectable.
-- Latar musik dan efek suara.
-- Level multiple (opsional).
-- Mode fullscreen dan joystick kontrol di layar.
-
----
-
-## 📁 Struktur Folder
-
+## 🕹️ 
